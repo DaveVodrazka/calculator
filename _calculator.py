@@ -1,3 +1,4 @@
 from pow import power
 
-print(power(-7, .25))
+
+print(power(7, -0.81))

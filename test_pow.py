@@ -59,6 +59,7 @@ class TestMainPower(unittest.TestCase):
         self.assertAlmostEqual(power(5, -2), 0.04)
         self.assertAlmostEqual(power(7, .5), 2.6457513110646933)
         self.assertAlmostEqual(power(.345, 4), 0.01416695062)
+        self.assertAlmostEqual(power(7, -0.81), 0.20676193520878688)
 
     def test_types(self):
         # Test power for unsupported types

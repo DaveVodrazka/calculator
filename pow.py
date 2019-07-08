@@ -1,3 +1,4 @@
+import sys
 from _type_check import int_or_float_check, int_check
 from greatest_common_divisor import GCD
 from abs import abs
@@ -10,16 +11,23 @@ from modulo import modulo
 def power(a, b):
     int_or_float_check(a)
     int_or_float_check(b)
-    if isinstance(b, float):
-        frac = get_fraction(b)
-        if frac[0] < 0:
-            return int_root(divide(1, int_power(a, abs(frac[0]))), frac[1])
-        else:
-            return int_root(int_power(a, frac[0]), frac[1])
-    elif b >= 0:
-        return int_power(a, b)
-    else:
-        return divide(1, int_power(a, abs(b)))
+    if isinstance(b, int):
+        if b == 0:
+            return 1
+        elif b > 0:
+            return int_power(a, b)
+        elif b < 0:
+            return divide(1, int_power(a, abs(b)))
+
+    frac = get_fraction(b)
+    if frac[0] > 0:
+        first_step = int_power(a, frac[0])
+        result = int_root(first_step, frac[1])
+        return result
+    elif frac[0] < 0:
+        first_step = divide(1, int_power(a, abs(frac[0])))
+        result = int_root(first_step, frac[1])
+        return result
 
 
 def get_fraction(a):
@@ -53,7 +61,10 @@ def int_power(a, b):
     res = 1
     for i in range(b):
         res = multiply(res, a)
-    return res
+    if res == 0 and a > 0:
+        return sys.float_info.min
+    else:
+        return res
 
 
 def int_root(a, n):
