@@ -6,6 +6,7 @@ from multiply import multiply
 from divide import divide
 from add import add
 from modulo import modulo
+from fraction import get_fraction
 
 
 def power(a, b):
@@ -28,30 +29,6 @@ def power(a, b):
         first_step = divide(1, int_power(a, abs(frac[0])))
         result = int_root(first_step, frac[1])
         return result
-
-
-def get_fraction(a):
-    # Turns float into fraction
-    int_or_float_check(a)
-    if isinstance(a, int):
-        return a, 1
-    else:
-        is_negative = False
-        if a < 0:
-            is_negative = True
-            a = abs(a)
-        fraction = str(a).split(".")
-        original_denominator = 1
-        for i in range(len(fraction[1])):
-            original_denominator = multiply(original_denominator, 10)
-        original_numerator = int(fraction[0] + fraction[1])  # Not addition but string concat
-        common_denominator = GCD(original_numerator, original_denominator)
-        numerator = int(divide(original_numerator, common_denominator))
-        denominator = int(divide(original_denominator, common_denominator))
-    if is_negative:
-        return -numerator, denominator
-    else:
-        return numerator, denominator
 
 
 def int_power(a, b):
